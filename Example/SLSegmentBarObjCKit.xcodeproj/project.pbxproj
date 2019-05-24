@@ -24,6 +24,8 @@
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		A7A160E741A9D22DBC15A89C /* Pods_SLSegmentBarObjCKit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70022645FBC6181C7B32E33 /* Pods_SLSegmentBarObjCKit_Tests.framework */; };
+		AEA314712297CA3800412B48 /* UIView+SLAdjustFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA3146D2297CA3800412B48 /* UIView+SLAdjustFrame.m */; };
+		AEA314722297CA3800412B48 /* SLSegmentBar.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA314702297CA3800412B48 /* SLSegmentBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,10 @@
 		6E1E470873DE355BB9DB4AFE /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AEA3146C2297CA3800412B48 /* UIView+SLAdjustFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SLAdjustFrame.h"; sourceTree = "<group>"; };
+		AEA3146D2297CA3800412B48 /* UIView+SLAdjustFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SLAdjustFrame.m"; sourceTree = "<group>"; };
+		AEA3146F2297CA3800412B48 /* SLSegmentBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSegmentBar.h; sourceTree = "<group>"; };
+		AEA314702297CA3800412B48 /* SLSegmentBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSegmentBar.m; sourceTree = "<group>"; };
 		D3CBACD4B3D53AE1BD3E1442 /* Pods-SLSegmentBarObjCKit_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SLSegmentBarObjCKit_Tests.release.xcconfig"; path = "Target Support Files/Pods-SLSegmentBarObjCKit_Tests/Pods-SLSegmentBarObjCKit_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		D70022645FBC6181C7B32E33 /* Pods_SLSegmentBarObjCKit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SLSegmentBarObjCKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -143,6 +149,7 @@
 		6003F593195388D20070C39A /* Example for SLSegmentBarObjCKit */ = {
 			isa = PBXGroup;
 			children = (
+				AEA314672297C97F00412B48 /* Classes */,
 				6003F59C195388D20070C39A /* SLAppDelegate.h */,
 				6003F59D195388D20070C39A /* SLAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
@@ -194,6 +201,33 @@
 				6E1E470873DE355BB9DB4AFE /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		AEA314672297C97F00412B48 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				AEA3146B2297CA3800412B48 /* Categoary */,
+				AEA3146E2297CA3800412B48 /* View */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		AEA3146B2297CA3800412B48 /* Categoary */ = {
+			isa = PBXGroup;
+			children = (
+				AEA3146C2297CA3800412B48 /* UIView+SLAdjustFrame.h */,
+				AEA3146D2297CA3800412B48 /* UIView+SLAdjustFrame.m */,
+			);
+			path = Categoary;
+			sourceTree = "<group>";
+		};
+		AEA3146E2297CA3800412B48 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AEA3146F2297CA3800412B48 /* SLSegmentBar.h */,
+				AEA314702297CA3800412B48 /* SLSegmentBar.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -371,8 +405,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEA314722297CA3800412B48 /* SLSegmentBar.m in Sources */,
 				6003F59E195388D20070C39A /* SLAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* SLViewController.m in Sources */,
+				AEA314712297CA3800412B48 /* UIView+SLAdjustFrame.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,0 +1,16 @@
+PODS:
+  - SLSegmentBarObjCKit (0.1.0)
+
+DEPENDENCIES:
+  - SLSegmentBarObjCKit (from `../`)
+
+EXTERNAL SOURCES:
+  SLSegmentBarObjCKit:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  SLSegmentBarObjCKit: f101fb59857526027d7cb62ba8a09d10b72c5027
+
+PODFILE CHECKSUM: 366edd97888176e9b638e29de0abadce836053ca
+
+COCOAPODS: 1.6.0

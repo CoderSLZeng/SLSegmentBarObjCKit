@@ -22,7 +22,6 @@
 
 #pragma mark - Init
 + (instancetype)segmentBarWithFrame:(CGRect)frame {
-    NSLog(@"%s", __func__);
     SLSegmentBar *segmentBar = [[SLSegmentBar alloc] initWithFrame:frame];
     
     // 添加内容承载视图
@@ -34,10 +33,20 @@
     return segmentBar;
 }
 
++ (instancetype)segmentBarWithFrame:(CGRect)frame
+                             titles:(nonnull NSArray<NSString *> *)titles {
+    if (titles == nil) {
+        NSAssert(nil, @"标题数据源不能为空");
+    }
+    
+    SLSegmentBar *segmentBar = [self segmentBarWithFrame:frame];
+    segmentBar.titles = titles;
+    return segmentBar;
+}
+
 #pragma mark - Layout
 - (void)layoutSubviews {
     [super layoutSubviews];
-    NSLog(@"%s", __func__);
     self.contentView.frame = self.bounds;
     
     // 计算内容视图的宽度

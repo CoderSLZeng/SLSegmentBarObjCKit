@@ -12,10 +12,16 @@
 #define kMinMargin 30
 
 @interface SLSegmentBar ()
+{
+    UIButton *_lastBtn;
+}
 /** 内容承载视图 */
 @property (weak, nonatomic) UIScrollView *contentView;
 /** 标题按钮数据源 */
 @property (strong, nonatomic) NSMutableArray<UIButton *> *titleBtns;
+/** 指示器视图 */
+@property (weak, nonatomic) UIView *indicatorView;
+
 @end
 
 @implementation SLSegmentBar
@@ -35,7 +41,7 @@
 
 + (instancetype)segmentBarWithFrame:(CGRect)frame
                              titles:(nonnull NSArray<NSString *> *)titles {
-    if (titles == nil) {
+    if (titles == nil || 0 == titles.count) {
         NSAssert(nil, @"标题数据源不能为空");
     }
     
@@ -73,8 +79,33 @@
     self.contentView.contentSize = CGSizeMake(lastX, 0);
 }
 
+#pragma mark - Action
+- (void)titleButtonDidClicked:(UIButton *)btn {
+    // 设置按钮选中状态
+    _lastBtn.selected = NO;
+    btn.selected = YES;
+    _lastBtn = btn;
+    
+    // 更新指示器视图的位置
+    [UIView animateWithDuration:0.1 animations:^{
+        self.indicatorView.sl_width = btn.sl_width;
+        self.indicatorView.sl_centerX =  btn.sl_centerX;
+    }];
+
+    // 将内容视图滚动到按钮的位置
+    CGFloat scrollX = btn.sl_centerX - self.contentView.sl_width * 0.5;
+    if (scrollX < 0) scrollX = 0;
+    CGFloat maxWidth = self.contentView.contentSize.width - self.contentView.sl_width;
+    if (scrollX > maxWidth) scrollX = maxWidth;
+    
+    [self.contentView setContentOffset:CGPointMake(scrollX, 0) animated:YES];
+}
+
 #pragma mark - Setter
-- (void)setTitles:(NSArray<NSString *> *)titles {
+- (void)setTitles:(nonnull NSArray<NSString *> *)titles {
+    if (titles == nil || 0 == titles.count) {
+        NSAssert(nil, @"标题数据源不能为空");
+    }
     _titles = titles;
     
     // 删除之前添加过的按钮组件
@@ -85,7 +116,9 @@
     for (NSString *title in titles) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setTitle:title forState:UIControlStateNormal];
-        btn.backgroundColor = [UIColor greenColor];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+        [btn addTarget:self action:@selector(titleButtonDidClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:btn];
         [self.titleBtns addObject:btn];
     }
@@ -101,6 +134,20 @@
     
     return _titleBtns;
 }
+
+- (UIView *)indicatorView {
+    if (!_indicatorView) {
+        CGFloat indicatorH = 2;
+        CGRect frame = CGRectMake(0, self.sl_height - indicatorH, 0, indicatorH);
+        UIView *indicatorView = [[UIView alloc] initWithFrame:frame];
+        indicatorView.backgroundColor = [UIColor redColor];
+        [self.contentView addSubview:indicatorView];
+        _indicatorView = indicatorView;
+    }
+    
+    return _indicatorView;
+}
+
 
 
 

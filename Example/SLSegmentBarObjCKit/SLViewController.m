@@ -23,14 +23,12 @@
     CGRect frame = CGRectMake(0, 44, self.view.sl_width, 35);
     SLSegmentBar *segmentBar = [SLSegmentBar segmentBarWithFrame:frame
                                                           titles:titles];
-    segmentBar.backgroundColor = [UIColor redColor];
+    segmentBar.backgroundColor = [UIColor blueColor];
     [self.view addSubview:segmentBar];
     self.segmentBar = segmentBar;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    self.segmentBar.titles = @[@"标题1", @"标题标题2", @"标题标题标题3", @"标题4", @"标题5", @"标题6", @"标题7"];
-    self.segmentBar.backgroundColor = [UIColor blueColor];
 }
 
 @end

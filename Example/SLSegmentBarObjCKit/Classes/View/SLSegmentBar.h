@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
                              titles:(nonnull NSArray<NSString *> *)titles;
 
 /** 标题数据源 */
-@property (strong, nonatomic) NSArray<NSString *> *titles;
+@property (strong, nonatomic, nonnull) NSArray<NSString *> *titles;
 
 @end
 

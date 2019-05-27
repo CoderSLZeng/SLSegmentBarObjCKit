@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class SLSegmentBar;
+
+@protocol SLSegmentBarDelegate <NSObject>
+@optional
+- (void)segmentBar:(SLSegmentBar *)segmentBar didSelectedToIndex:(NSInteger)toIndex fromIndex:(NSInteger)fromIndex;
+
+@end
 
 @interface SLSegmentBar : UIView
 
@@ -34,6 +41,14 @@ NS_ASSUME_NONNULL_BEGIN
 /** 标题数据源 */
 @property (strong, nonatomic, nonnull) NSArray<NSString *> *titles;
 
+/** 代理 */
+@property (weak, nonatomic) id<SLSegmentBarDelegate> delegate;
+
+/** 选中的位置 */
+@property (assign, nonatomic) NSInteger selectedIndex;
+
+/** 选中标题的回调 */
+@property (copy, nonatomic) void(^selectedBlock)(NSInteger toIndex, NSInteger fromIndex);
 @end
 
 NS_ASSUME_NONNULL_END

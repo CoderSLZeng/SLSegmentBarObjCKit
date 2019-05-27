@@ -81,6 +81,20 @@
 
 #pragma mark - Action
 - (void)titleButtonDidClicked:(UIButton *)btn {
+    // 监听代理实现
+    if ([self.delegate respondsToSelector:@selector(segmentBar:didSelectedToIndex:fromIndex:)]) {
+        [self.delegate segmentBar:self didSelectedToIndex:btn.tag fromIndex:_lastBtn.tag];
+    }
+    
+    // 监听回调实现
+    __weak typeof(self) weakSelf = self;
+    if (self.selectedBlock) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        strongSelf.selectedBlock(btn.tag, strongSelf->_lastBtn.tag);
+    }
+    
+    _selectedIndex = btn.tag;
+    
     // 设置按钮选中状态
     _lastBtn.selected = NO;
     btn.selected = YES;
@@ -119,6 +133,7 @@
         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(titleButtonDidClicked:) forControlEvents:UIControlEventTouchUpInside];
+        btn.tag = self.titleBtns.count;
         [self.contentView addSubview:btn];
         [self.titleBtns addObject:btn];
     }
@@ -126,6 +141,16 @@
     // 手动刷新布局
     [self setNeedsLayout];
     [self layoutIfNeeded];
+}
+
+- (void)setSelectedIndex:(NSInteger)selectedIndex {
+    // 数据过滤
+    if (0 == self.titleBtns.count || selectedIndex < 0 || selectedIndex > self.titleBtns.count - 1) return;
+    
+    _selectedIndex = selectedIndex;
+
+    UIButton *btn = self.titleBtns[selectedIndex];
+    [self titleButtonDidClicked:btn];
 }
 
 #pragma mark - Getter

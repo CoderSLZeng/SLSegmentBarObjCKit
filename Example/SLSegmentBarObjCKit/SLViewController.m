@@ -7,45 +7,60 @@
 //
 
 #import "SLViewController.h"
-#import "SLSegmentBar.h"
-#import "UIView+SLAdjustFrame.h"
 
-@interface SLViewController () <SLSegmentBarDelegate>
-/** 选项卡 */
-@property (weak, nonatomic) SLSegmentBar *segmentBar;
+#pragma mark - ViewControllers
+#import "SLSegmentBarVC.h"
+
+@interface SLViewController ()
+
+@property (weak, nonatomic) SLSegmentBarVC *segmentBarVC;
+
 @end
 
 @implementation SLViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.segmentBar.selectedBlock = ^(NSInteger toIndex, NSInteger fromIndex) {
-        NSLog(@"%zd---%zd", toIndex, fromIndex);
-    };
+    
+    self.navigationItem.titleView = self.segmentBarVC.segmentBar;
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    self.segmentBar.selectedIndex = 3;
-}
-
-#pragma mark - SLSegmentBarDelegate
-- (void)segmentBar:(SLSegmentBar *)segmentBar didSelectedToIndex:(NSInteger)toIndex fromIndex:(NSInteger)fromIndex {
-    NSLog(@"%zd---%zd", toIndex, fromIndex);
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    self.segmentBarVC.view.frame = self.view.bounds;
+    self.segmentBarVC.segmentBar.frame = CGRectMake(0, 0, 300, 35);
 }
 
 #pragma mark - Getter
-
-- (SLSegmentBar *)segmentBar {
-    if (!_segmentBar) {
-        NSArray *titles = @[@"标题1", @"标题标题2", @"标题标题标题3", @"标题4", @"标题5", @"标题6", @"标题7"];
-        CGRect frame = CGRectMake(0, 44, self.view.sl_width, 35);
-        SLSegmentBar *segmentBar = [SLSegmentBar segmentBarWithFrame:frame titles:titles];
-        segmentBar.backgroundColor = [UIColor blueColor];
-        [self.view addSubview:segmentBar];
-        _segmentBar = segmentBar;
+- (SLSegmentBarVC *)segmentBarVC {
+    if (!_segmentBarVC) {
+        NSArray *titles = @[@"标题标题标题1", @"标题2", @"标题标题3", @"标题4"];
+        SLSegmentBarVC *segmentBarVC = [SLSegmentBarVC sementBarVCWithTitles:titles childVCs:self.childVCs];
+        [self addChildViewController:segmentBarVC];
+        [self.view addSubview:segmentBarVC.view];
+        _segmentBarVC = segmentBarVC;
     }
     
-    return _segmentBar;
+    return _segmentBarVC;
+}
+
+- (NSArray<UIViewController *> *)childVCs {
+    UIViewController *aVC = [[UIViewController alloc] init];
+    aVC.view.backgroundColor = [UIColor redColor];
+    
+    UIViewController *bVC = [[UIViewController alloc] init];
+    bVC.view.backgroundColor = [UIColor greenColor];
+    
+    
+    UIViewController *cVC = [[UIViewController alloc] init];
+    cVC.view.backgroundColor = [UIColor blueColor];
+    
+    UIViewController *dVC = [[UIViewController alloc] init];
+    dVC.view.backgroundColor = [UIColor purpleColor];
+    
+    
+    return @[aVC, bVC, cVC, dVC];
 }
 
 

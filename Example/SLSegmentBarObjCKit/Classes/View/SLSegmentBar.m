@@ -41,9 +41,8 @@
 
 + (instancetype)segmentBarWithFrame:(CGRect)frame
                              titles:(nonnull NSArray<NSString *> *)titles {
-    if (titles == nil || 0 == titles.count) {
-        NSAssert(nil, @"标题数据源不能为空");
-    }
+    
+    NSAssert(0 != titles.count, @"标题数据源不能为空");
     
     SLSegmentBar *segmentBar = [self segmentBarWithFrame:frame];
     segmentBar.titles = titles;
@@ -51,8 +50,10 @@
 }
 
 #pragma mark - Layout
+
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
     self.contentView.frame = self.bounds;
     
     // 计算内容视图的宽度
@@ -67,7 +68,7 @@
     if (caculateMarin < kMinMargin) caculateMarin = kMinMargin;
     
     // 设置标题按钮的位置
-    CGFloat lastX =  caculateMarin;
+    CGFloat lastX = caculateMarin;
     for (UIButton *btn in self.titleBtns) {
         [btn sizeToFit];
         btn.sl_height = self.sl_height;
@@ -77,10 +78,16 @@
     }
     
     self.contentView.contentSize = CGSizeMake(lastX, 0);
+    
+    CGFloat indicatorH = 2;
+    self.indicatorView.frame = CGRectMake(_lastBtn.sl_x, self.contentView.sl_height - indicatorH, _lastBtn.sl_width, indicatorH);
 }
 
 #pragma mark - Action
 - (void)titleButtonDidClicked:(UIButton *)btn {
+    
+    if (btn == _lastBtn) return;
+    
     // 监听代理实现
     if ([self.delegate respondsToSelector:@selector(segmentBar:didSelectedToIndex:fromIndex:)]) {
         [self.delegate segmentBar:self didSelectedToIndex:btn.tag fromIndex:_lastBtn.tag];
@@ -103,10 +110,11 @@
     // 更新指示器视图的位置
     [UIView animateWithDuration:0.1 animations:^{
         self.indicatorView.sl_width = btn.sl_width;
-        self.indicatorView.sl_centerX =  btn.sl_centerX;
+        self.indicatorView.sl_centerX = btn.sl_centerX;
     }];
 
     // 将内容视图滚动到按钮的位置
+    if (self.sl_width == 0) return;
     CGFloat scrollX = btn.sl_centerX - self.contentView.sl_width * 0.5;
     if (scrollX < 0) scrollX = 0;
     CGFloat maxWidth = self.contentView.contentSize.width - self.contentView.sl_width;
@@ -117,9 +125,9 @@
 
 #pragma mark - Setter
 - (void)setTitles:(nonnull NSArray<NSString *> *)titles {
-    if (titles == nil || 0 == titles.count) {
-        NSAssert(nil, @"标题数据源不能为空");
-    }
+
+    NSAssert(0 != titles.count, @"标题数据源不能为空");
+    
     _titles = titles;
     
     // 删除之前添加过的按钮组件
@@ -150,6 +158,7 @@
     _selectedIndex = selectedIndex;
 
     UIButton *btn = self.titleBtns[selectedIndex];
+    // 手动刷新布局
     [self titleButtonDidClicked:btn];
 }
 
@@ -162,9 +171,7 @@
 
 - (UIView *)indicatorView {
     if (!_indicatorView) {
-        CGFloat indicatorH = 2;
-        CGRect frame = CGRectMake(0, self.sl_height - indicatorH, 0, indicatorH);
-        UIView *indicatorView = [[UIView alloc] initWithFrame:frame];
+        UIView *indicatorView = [[UIView alloc] init];
         indicatorView.backgroundColor = [UIColor redColor];
         [self.contentView addSubview:indicatorView];
         _indicatorView = indicatorView;

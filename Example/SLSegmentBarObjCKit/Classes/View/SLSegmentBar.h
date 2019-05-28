@@ -4,12 +4,14 @@
 //
 //  Created by CoderSLZeng on 2019/5/24.
 //  Copyright © 2019 CoderSLZeng. All rights reserved.
+//  选项卡标题栏视图
 //
 
 #import <UIKit/UIKit.h>
+#import "SLSegmentBarConfig.h"
 
-NS_ASSUME_NONNULL_BEGIN
 @class SLSegmentBar;
+NS_ASSUME_NONNULL_BEGIN
 
 @protocol SLSegmentBarDelegate <NSObject>
 @optional
@@ -49,6 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** 选中标题的回调 */
 @property (copy, nonatomic) void(^selectedBlock)(NSInteger toIndex, NSInteger fromIndex);
+
+- (void)updateWithConfig:(void(^)(SLSegmentBarConfig *config))confingBlock;
 @end
 
 NS_ASSUME_NONNULL_END

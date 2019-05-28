@@ -50,7 +50,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    if (@available(iOS 11.0, *)) {
+        self.contentView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+         self.automaticallyAdjustsScrollViewInsets = NO;        
+    }
 }
 
 - (void)viewDidLayoutSubviews {
@@ -58,8 +63,11 @@
     
     CGRect contentViewFrame = self.view.bounds;
     if (self.segmentBar.superview == self.view) {
-        self.segmentBar.frame = CGRectMake(0, 64, self.view.sl_width, 35);
         
+        CGFloat y = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+        if (y == 0) y = [[UIApplication sharedApplication] statusBarFrame].size.height;
+        self.segmentBar.frame = CGRectMake(0, y, self.view.sl_width, 35);
+
         CGFloat contentViewY = CGRectGetMaxY(self.segmentBar.frame);
         contentViewFrame = CGRectMake(0,
                                       contentViewY,

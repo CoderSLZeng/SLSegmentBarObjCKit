@@ -8,8 +8,7 @@
 
 #import "SLSegmentBar.h"
 #import "UIView+SLAdjustFrame.h"
-
-#define kMinMargin 30
+#import "SLSegmentBarConfig.h"
 
 @interface SLSegmentBar ()
 {
@@ -21,6 +20,8 @@
 @property (strong, nonatomic) NSMutableArray<UIButton *> *titleBtns;
 /** 指示器视图 */
 @property (weak, nonatomic) UIView *indicatorView;
+/** 统一配置 */
+@property (strong, nonatomic) SLSegmentBarConfig *config;
 
 @end
 
@@ -29,7 +30,7 @@
 #pragma mark - Init
 + (instancetype)segmentBarWithFrame:(CGRect)frame {
     SLSegmentBar *segmentBar = [[SLSegmentBar alloc] initWithFrame:frame];
-    
+    segmentBar.backgroundColor = segmentBar.config.backgroundColor;
     // 添加内容承载视图
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:frame];
     scrollView.showsHorizontalScrollIndicator = NO;
@@ -49,8 +50,26 @@
     return segmentBar;
 }
 
-#pragma mark - Layout
+- (void)updateWithConfig:(void (^)(SLSegmentBarConfig * _Nonnull))confingBlock {
+    if (confingBlock) confingBlock(self.config);
+    
+    self.backgroundColor = self.config.backgroundColor;
+    
+    for (UIButton *btn in self.titleBtns) {
+        [btn setTitleColor:self.config.titleNormalColor forState:UIControlStateNormal];
+        [btn setTitleColor:self.config.titleSelectedColor forState:UIControlStateSelected];
+        btn.titleLabel.font = self.config.titleFont;
+    }
+    
+    self.indicatorView.backgroundColor = self.config.indicatorColor;
+    
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
 
+    
+}
+
+#pragma mark - Layout
 - (void)layoutSubviews {
     [super layoutSubviews];
     
@@ -65,7 +84,7 @@
     
     // 计算标题按钮的间距
     CGFloat caculateMarin = (self.sl_width - totalBtnWidth) / (self.titles.count + 1);
-    if (caculateMarin < kMinMargin) caculateMarin = kMinMargin;
+    if (caculateMarin < self.config.minMargin) caculateMarin = self.config.minMargin;
     
     // 设置标题按钮的位置
     CGFloat lastX = caculateMarin;
@@ -79,8 +98,14 @@
     
     self.contentView.contentSize = CGSizeMake(lastX, 0);
     
-    CGFloat indicatorH = 2;
-    self.indicatorView.frame = CGRectMake(_lastBtn.sl_x, self.contentView.sl_height - indicatorH, _lastBtn.sl_width, indicatorH);
+    if (!self.titleBtns.count) return;
+    
+    UIButton *btn = self.titleBtns[self.selectedIndex];
+    self.indicatorView.frame = CGRectMake(btn.sl_x,
+                                          self.contentView.sl_height - self.config.indicatorHeight,
+                                          btn.sl_width + self.config.indicatorExtraWidth * 2,
+                                          self.config.indicatorHeight);
+    self.indicatorView.sl_centerX = btn.sl_centerX;
 }
 
 #pragma mark - Action
@@ -100,8 +125,6 @@
         strongSelf.selectedBlock(btn.tag, strongSelf->_lastBtn.tag);
     }
     
-    _selectedIndex = btn.tag;
-    
     // 设置按钮选中状态
     _lastBtn.selected = NO;
     btn.selected = YES;
@@ -109,7 +132,7 @@
     
     // 更新指示器视图的位置
     [UIView animateWithDuration:0.1 animations:^{
-        self.indicatorView.sl_width = btn.sl_width;
+        self.indicatorView.sl_width = btn.sl_width + self.config.indicatorExtraWidth * 2;
         self.indicatorView.sl_centerX = btn.sl_centerX;
     }];
 
@@ -138,8 +161,9 @@
     for (NSString *title in titles) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setTitle:title forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+        [btn setTitleColor:self.config.titleNormalColor forState:UIControlStateNormal];
+        [btn setTitleColor:self.config.titleSelectedColor forState:UIControlStateSelected];
+        btn.titleLabel.font = self.config.titleFont;
         [btn addTarget:self action:@selector(titleButtonDidClicked:) forControlEvents:UIControlEventTouchUpInside];
         btn.tag = self.titleBtns.count;
         [self.contentView addSubview:btn];
@@ -165,20 +189,26 @@
 #pragma mark - Getter
 - (NSMutableArray<UIButton *> *)titleBtns {
     if (!_titleBtns) _titleBtns = [NSMutableArray arrayWithCapacity:self.titles.count];
-    
     return _titleBtns;
 }
 
 - (UIView *)indicatorView {
     if (!_indicatorView) {
         UIView *indicatorView = [[UIView alloc] init];
-        indicatorView.backgroundColor = [UIColor redColor];
+        indicatorView.backgroundColor = self.config.indicatorColor;
         [self.contentView addSubview:indicatorView];
         _indicatorView = indicatorView;
     }
     
     return _indicatorView;
 }
+
+- (SLSegmentBarConfig *)config {
+    if (!_config) _config = [SLSegmentBarConfig defaultConfig];
+    
+    return _config;
+}
+
 
 
 

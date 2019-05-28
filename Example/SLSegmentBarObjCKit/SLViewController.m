@@ -23,13 +23,30 @@
     [super viewDidLoad];
     
     self.navigationItem.titleView = self.segmentBarVC.segmentBar;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self updateSegmentBarUI];
+    });
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
     self.segmentBarVC.view.frame = self.view.bounds;
-    self.segmentBarVC.segmentBar.frame = CGRectMake(0, 0, 300, 35);
+    self.segmentBarVC.segmentBar.frame = CGRectMake(0, 64, 300, 55);
+}
+
+- (void)updateSegmentBarUI {
+    [self.segmentBarVC.segmentBar updateWithConfig:^(SLSegmentBarConfig * _Nonnull config) {
+       config.bgColor([UIColor grayColor])
+        .minM(50)
+        .titleNC([UIColor darkGrayColor])
+        .titleSC([UIColor purpleColor])
+        .titleFnt([UIFont systemFontOfSize:18])
+        .indicatorC([UIColor greenColor])
+        .indicatorH(4)
+        .indicatorExtraW(-30);
+    }];
 }
 
 #pragma mark - Getter

@@ -7,7 +7,7 @@
 //
 
 #import "SLSegmentBar.h"
-#import "UIView+SLAdjustFrame.h"
+#import <SLCategoryObjCKit/UIView+SLAdjustFrame.h>
 #import "SLSegmentBarConfig.h"
 
 @interface SLSegmentBar ()

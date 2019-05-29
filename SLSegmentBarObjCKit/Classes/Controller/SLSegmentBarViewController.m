@@ -9,7 +9,7 @@
 #import "SLSegmentBarViewController.h"
 
 #pragma mark - Categories
-#import "UIView+SLAdjustFrame.h"
+#import <SLCategoryObjCKit/UIView+SLAdjustFrame.h>
 
 @interface SLSegmentBarViewController () <UIScrollViewDelegate>
 

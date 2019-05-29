@@ -1,15 +1,31 @@
 PODS:
-  - SLSegmentBarObjCKit (0.1.0)
+  - SLCategoryObjCKit/View (0.4.0)
+  - SLSegmentBarObjCKit (0.1.0):
+    - SLCategoryObjCKit/View
+    - SLSegmentBarObjCKit/Config (= 0.1.0)
+    - SLSegmentBarObjCKit/Controller (= 0.1.0)
+    - SLSegmentBarObjCKit/View (= 0.1.0)
+  - SLSegmentBarObjCKit/Config (0.1.0):
+    - SLCategoryObjCKit/View
+  - SLSegmentBarObjCKit/Controller (0.1.0):
+    - SLCategoryObjCKit/View
+  - SLSegmentBarObjCKit/View (0.1.0):
+    - SLCategoryObjCKit/View
 
 DEPENDENCIES:
   - SLSegmentBarObjCKit (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - SLCategoryObjCKit
 
 EXTERNAL SOURCES:
   SLSegmentBarObjCKit:
     :path: "../"
 
 SPEC CHECKSUMS:
-  SLSegmentBarObjCKit: f101fb59857526027d7cb62ba8a09d10b72c5027
+  SLCategoryObjCKit: b15c45bcb0de4d8e422a62215f8891ec719571d0
+  SLSegmentBarObjCKit: f755d903c957a38ee57f8d6e734510e4cfbac536
 
 PODFILE CHECKSUM: 366edd97888176e9b638e29de0abadce836053ca
 

@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  更新配置的回调
 
- @param confingBlock 回调内容
+ @param configBlock 回调内容
  */
 - (void)updateWithConfig:(void(^)(SLSegmentBarConfig *config))configBlock;
 @end

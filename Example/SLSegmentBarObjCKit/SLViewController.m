@@ -9,7 +9,7 @@
 #import "SLViewController.h"
 
 #pragma mark - ViewControllers
-#import "SLSegmentBarViewController.h"
+#import <SLSegmentBarObjCKit/SLSegmentBarViewController.h>
 
 @interface SLViewController ()
 

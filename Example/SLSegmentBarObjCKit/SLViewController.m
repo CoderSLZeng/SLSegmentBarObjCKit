@@ -9,11 +9,11 @@
 #import "SLViewController.h"
 
 #pragma mark - ViewControllers
-#import "SLSegmentBarVC.h"
+#import "SLSegmentBarViewController.h"
 
 @interface SLViewController ()
 
-@property (weak, nonatomic) SLSegmentBarVC *segmentBarVC;
+@property (weak, nonatomic) SLSegmentBarViewController *segmentBarVC;
 
 @end
 
@@ -45,15 +45,16 @@
         .titleFnt([UIFont systemFontOfSize:18])
         .indicatorC([UIColor greenColor])
         .indicatorH(4)
-        .indicatorExtraW(-30);
+        .indicatorExtraW(-30)
+        .showIndicator(NO);
     }];
 }
 
 #pragma mark - Getter
-- (SLSegmentBarVC *)segmentBarVC {
+- (SLSegmentBarViewController *)segmentBarVC {
     if (!_segmentBarVC) {
         NSArray *titles = @[@"标题标题标题1", @"标题2", @"标题标题3", @"标题4"];
-        SLSegmentBarVC *segmentBarVC = [SLSegmentBarVC sementBarVCWithTitles:titles childVCs:self.childVCs];
+        SLSegmentBarViewController *segmentBarVC = [[SLSegmentBarViewController alloc] initWithTitles:titles childVCs:self.childVCs];
         [self addChildViewController:segmentBarVC];
         [self.view addSubview:segmentBarVC.view];
         _segmentBarVC = segmentBarVC;

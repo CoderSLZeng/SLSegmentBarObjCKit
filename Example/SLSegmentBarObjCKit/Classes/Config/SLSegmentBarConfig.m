@@ -14,7 +14,7 @@
     SLSegmentBarConfig *config = [[SLSegmentBarConfig alloc] init];
     config.backgroundColor = [UIColor clearColor];
     config.minMargin = 30;
-    
+
     config.titleFont = [UIFont systemFontOfSize:15];
     config.titleNormalColor = [UIColor lightGrayColor];
     config.titleSelectedColor = [UIColor redColor];
@@ -22,6 +22,8 @@
     config.indicatorColor = [UIColor redColor];
     config.indicatorHeight = 2;
     config.indicatorExtraWidth = 0;
+    
+    config.isShowIndicator = YES;
     
     return config;
 }
@@ -82,5 +84,11 @@
     };
 }
 
+- (SLSegmentBarConfig * _Nonnull (^)(BOOL))showIndicator {
+    return ^(BOOL isShowIndicator) {
+        self.isShowIndicator = isShowIndicator;
+        return self;
+    };
+}
 
 @end

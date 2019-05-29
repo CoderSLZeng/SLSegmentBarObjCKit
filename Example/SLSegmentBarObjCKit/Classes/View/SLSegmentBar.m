@@ -50,8 +50,8 @@
     return segmentBar;
 }
 
-- (void)updateWithConfig:(void (^)(SLSegmentBarConfig * _Nonnull))confingBlock {
-    if (confingBlock) confingBlock(self.config);
+- (void)updateWithConfig:(void (^)(SLSegmentBarConfig * _Nonnull))configBlock {
+    if (configBlock) configBlock(self.config);
     
     self.backgroundColor = self.config.backgroundColor;
     
@@ -65,8 +65,6 @@
     
     [self setNeedsLayout];
     [self layoutIfNeeded];
-
-    
 }
 
 #pragma mark - Layout
@@ -98,8 +96,12 @@
     
     self.contentView.contentSize = CGSizeMake(lastX, 0);
     
-    if (!self.titleBtns.count) return;
+    if (!self.config.isShowIndicator) {
+        self.indicatorView.frame = CGRectZero;
+        return;
+    }
     
+    if (!self.titleBtns.count) return;
     UIButton *btn = self.titleBtns[self.selectedIndex];
     self.indicatorView.frame = CGRectMake(btn.sl_x,
                                           self.contentView.sl_height - self.config.indicatorHeight,

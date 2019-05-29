@@ -39,6 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** 指示器的额外宽度 */
 @property (assign, nonatomic) CGFloat indicatorExtraWidth;
 
+/** 是否显示指示器 */
+@property (assign, nonatomic) BOOL isShowIndicator;
+
 #pragma mark - 链式编程支持
 /** 背景颜色 */
 - (SLSegmentBarConfig * _Nonnull (^)(UIColor * _Nonnull))bgColor;
@@ -58,6 +61,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (SLSegmentBarConfig * _Nonnull (^)(CGFloat))indicatorH;
 /** 指示器的额外宽度 */
 - (SLSegmentBarConfig * _Nonnull (^)(CGFloat))indicatorExtraW;
+
+/** 是否显示指示器 */
+- (SLSegmentBarConfig * _Nonnull (^)(BOOL))showIndicator;
 
 @end
 

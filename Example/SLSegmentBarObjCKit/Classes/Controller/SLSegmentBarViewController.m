@@ -1,61 +1,51 @@
 //
-//  SLSementBarVC.m
+//  SLSegmentBarViewController.m
 //  SLSegmentBarObjCKit_Example
 //
 //  Created by CoderSLZeng on 2019/5/27.
 //  Copyright © 2019 CoderSLZeng. All rights reserved.
 //
 
-#import "SLSegmentBarVC.h"
-
-
+#import "SLSegmentBarViewController.h"
 
 #pragma mark - Categories
 #import "UIView+SLAdjustFrame.h"
 
-@interface SLSegmentBarVC () <UIScrollViewDelegate>
-
+@interface SLSegmentBarViewController () <UIScrollViewDelegate>
 
 /** 内容承载视图 */
 @property (weak, nonatomic) UIScrollView *contentView;
+
 @end
 
-@implementation SLSegmentBarVC
+@implementation SLSegmentBarViewController
 
-+ (instancetype)sementBarVCWithTitles:(NSArray<NSString *> *)titles
-                             childVCs:(NSArray<UIViewController *> *)childVCs {
+- (instancetype)initWithTitles:(NSArray<NSString *> *)titles
+                      childVCs:(NSArray<UIViewController *> *)childVCs {
     
     NSAssert(0 != titles.count && titles.count == childVCs.count, @"标题数据源和子控制器数据源数量不一致，请检查");
     
-    SLSegmentBarVC *vc = [[SLSegmentBarVC alloc] init];
-    vc.segmentBar.titles = titles;
+    self.segmentBar.titles = titles;
     
     // 删除之前添加的所有子控制器
-    [vc.childViewControllers makeObjectsPerformSelector:@selector(removeFromParentViewController)];
+    [self.childViewControllers makeObjectsPerformSelector:@selector(removeFromParentViewController)];
     
     // 添加新的子控制器
-    for (UIViewController *childVC in childVCs) {
-        [vc addChildViewController:childVC];
-    }
+    for (UIViewController *childVC in childVCs) [self addChildViewController:childVC];
     
-    vc.segmentBar.selectedBlock = ^(NSInteger toIndex, NSInteger fromIndex) {
-        [vc showViewFromChildVCAtIndex:toIndex];
+    __weak typeof(self) weakSelf = self;
+    self.segmentBar.selectedBlock = ^(NSInteger toIndex, NSInteger fromIndex) {
+        [weakSelf showViewFromChildVCAtIndex:toIndex];
     };
     
     // 默认选中第一个标题
-    vc.segmentBar.selectedIndex = 0;
+    self.segmentBar.selectedIndex = 0;
     
-    return vc;
+    return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    if (@available(iOS 11.0, *)) {
-        self.contentView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    } else {
-         self.automaticallyAdjustsScrollViewInsets = NO;        
-    }
 }
 
 - (void)viewDidLayoutSubviews {

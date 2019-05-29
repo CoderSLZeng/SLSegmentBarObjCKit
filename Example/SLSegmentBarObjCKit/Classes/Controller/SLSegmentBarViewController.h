@@ -1,5 +1,5 @@
 //
-//  SLSementBarVC.h
+//  SLSegmentBarViewController.h
 //  SLSegmentBarObjCKit_Example
 //
 //  Created by CoderSLZeng on 2019/5/27.
@@ -13,9 +13,9 @@
 #import "SLSegmentBar.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@interface SLSegmentBarVC : UIViewController
+@interface SLSegmentBarViewController : UIViewController
 
-+ (instancetype)sementBarVCWithTitles:(nonnull NSArray<NSString *> *)titles
+- (instancetype)initWithTitles:(nonnull NSArray<NSString *> *)titles
                              childVCs:(nonnull NSArray <UIViewController *> *)childVCs;
 /** 选项卡视图 */
 @property (weak, nonatomic) SLSegmentBar *segmentBar;

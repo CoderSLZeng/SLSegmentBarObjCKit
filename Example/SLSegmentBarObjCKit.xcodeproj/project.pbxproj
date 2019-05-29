@@ -26,7 +26,7 @@
 		A7A160E741A9D22DBC15A89C /* Pods_SLSegmentBarObjCKit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70022645FBC6181C7B32E33 /* Pods_SLSegmentBarObjCKit_Tests.framework */; };
 		AEA314712297CA3800412B48 /* UIView+SLAdjustFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA3146D2297CA3800412B48 /* UIView+SLAdjustFrame.m */; };
 		AEA314722297CA3800412B48 /* SLSegmentBar.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA314702297CA3800412B48 /* SLSegmentBar.m */; };
-		AEA319B5229B875D0067EA0D /* SLSegmentBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA319B4229B875D0067EA0D /* SLSegmentBarVC.m */; };
+		AEA319B5229B875D0067EA0D /* SLSegmentBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA319B4229B875D0067EA0D /* SLSegmentBarViewController.m */; };
 		AEA319C1229CE3470067EA0D /* SLSegmentBarConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA319C0229CE3470067EA0D /* SLSegmentBarConfig.m */; };
 /* End PBXBuildFile section */
 
@@ -73,8 +73,8 @@
 		AEA3146D2297CA3800412B48 /* UIView+SLAdjustFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SLAdjustFrame.m"; sourceTree = "<group>"; };
 		AEA3146F2297CA3800412B48 /* SLSegmentBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSegmentBar.h; sourceTree = "<group>"; };
 		AEA314702297CA3800412B48 /* SLSegmentBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSegmentBar.m; sourceTree = "<group>"; };
-		AEA319B3229B875D0067EA0D /* SLSegmentBarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLSegmentBarVC.h; sourceTree = "<group>"; };
-		AEA319B4229B875D0067EA0D /* SLSegmentBarVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLSegmentBarVC.m; sourceTree = "<group>"; };
+		AEA319B3229B875D0067EA0D /* SLSegmentBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLSegmentBarViewController.h; sourceTree = "<group>"; };
+		AEA319B4229B875D0067EA0D /* SLSegmentBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLSegmentBarViewController.m; sourceTree = "<group>"; };
 		AEA319BF229CE3470067EA0D /* SLSegmentBarConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLSegmentBarConfig.h; sourceTree = "<group>"; };
 		AEA319C0229CE3470067EA0D /* SLSegmentBarConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLSegmentBarConfig.m; sourceTree = "<group>"; };
 		D3CBACD4B3D53AE1BD3E1442 /* Pods-SLSegmentBarObjCKit_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SLSegmentBarObjCKit_Tests.release.xcconfig"; path = "Target Support Files/Pods-SLSegmentBarObjCKit_Tests/Pods-SLSegmentBarObjCKit_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -241,8 +241,8 @@
 		AEA319B7229B8ACF0067EA0D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				AEA319B3229B875D0067EA0D /* SLSegmentBarVC.h */,
-				AEA319B4229B875D0067EA0D /* SLSegmentBarVC.m */,
+				AEA319B3229B875D0067EA0D /* SLSegmentBarViewController.h */,
+				AEA319B4229B875D0067EA0D /* SLSegmentBarViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -433,7 +433,7 @@
 			files = (
 				AEA314722297CA3800412B48 /* SLSegmentBar.m in Sources */,
 				6003F59E195388D20070C39A /* SLAppDelegate.m in Sources */,
-				AEA319B5229B875D0067EA0D /* SLSegmentBarVC.m in Sources */,
+				AEA319B5229B875D0067EA0D /* SLSegmentBarViewController.m in Sources */,
 				6003F5A7195388D20070C39A /* SLViewController.m in Sources */,
 				AEA314712297CA3800412B48 /* UIView+SLAdjustFrame.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,

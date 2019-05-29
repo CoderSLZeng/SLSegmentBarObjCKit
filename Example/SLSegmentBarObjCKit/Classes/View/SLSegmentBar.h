@@ -52,7 +52,13 @@ NS_ASSUME_NONNULL_BEGIN
 /** 选中标题的回调 */
 @property (copy, nonatomic) void(^selectedBlock)(NSInteger toIndex, NSInteger fromIndex);
 
-- (void)updateWithConfig:(void(^)(SLSegmentBarConfig *config))confingBlock;
+
+/**
+ 更新配置的回调
+
+ @param confingBlock 回调内容
+ */
+- (void)updateWithConfig:(void(^)(SLSegmentBarConfig *config))configBlock;
 @end
 
 NS_ASSUME_NONNULL_END
